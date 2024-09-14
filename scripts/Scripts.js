@@ -38,6 +38,7 @@ toggles1.forEach(({ toggle, sidebarToToggle, sidebarToClose}) => {
       }
     });
 
+    setTimeout(() => {
       sidebarToToggle.classList.toggle("close");
       sidebar1Col.classList.toggle("close");
       sidebarToClose.classList.add("close2");
@@ -54,6 +55,7 @@ toggles1.forEach(({ toggle, sidebarToToggle, sidebarToClose}) => {
         }
       }
       }
+    }, 300);
   });
 });
 
@@ -112,32 +114,36 @@ sidebar.addEventListener("mouseenter", function () {
   }
 });
 
-sidebar.addEventListener('mouseleave', function() {
-  const collapsibleElements = sidebar.querySelectorAll('.collapse');
-  collapsibleElements.forEach(element => {
-    const collapseInstance = bootstrap.Collapse.getInstance(element);
-    if (collapseInstance) {
+let collapseTimeout;
+sidebar.addEventListener('mouseleave', function () {
+  if (collapseTimeout) clearTimeout(collapseTimeout);
+  
+  collapseTimeout = setTimeout(() => {
+    const collapsibleElements = sidebar.querySelectorAll('.collapse');
+    collapsibleElements.forEach(element => {
+      let collapseInstance = bootstrap.Collapse.getInstance(element);
+      if (!collapseInstance) {
+        collapseInstance = new bootstrap.Collapse(element, { toggle: false });
+      }
       collapseInstance.hide();
-    }
-  });
+    });
 
-  setTimeout(() => {
     sidebar.classList.add("close");
     sidebar1Col.classList.add("close");
     sidebar.classList.remove("close2");
-    if (window.innerWidth > 1500) {
-      if (mainPageIcon) {
-        if (sidebar.classList.contains("close")) {
-          mainPageIcon.style.left = ""; 
-          mainPageIcon.style.bottom = ""; 
-        } else {
-          mainPageIcon.style.left = "-60px";
-          mainPageIcon.style.bottom = "60px";
-        }
+
+    if (window.innerWidth > 1500 && mainPageIcon) {
+      if (sidebar.classList.contains("close")) {
+        mainPageIcon.style.left = ""; 
+        mainPageIcon.style.bottom = ""; 
+      } else {
+        mainPageIcon.style.left = "-60px";
+        mainPageIcon.style.bottom = "60px";
       }
     }
-  }, 0);
+  }, 300); 
 });
+
 
 //***************************************************************************main sidebar collapse script****************************************************************************** */
 
@@ -273,6 +279,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
       if (accordionItems.length > 0) {
           // Validation for forms with accordion sections
+          console.log('jo')
           Array.from(accordionItems).forEach(item => {
             const inputs = form.querySelectorAll('input, select, textarea');
             const checkIcon = item.querySelector('.data-check');
@@ -291,6 +298,14 @@ document.addEventListener("DOMContentLoaded", function () {
               if (checkIcon) {
                   checkIcon.style.backgroundColor = sectionIsValid ? 'green' : '';
               }
+              if (firstInvalidInput) {
+                firstInvalidInput.focus();
+                formIsValid = false;
+            }
+  
+            if (!formIsValid) {
+                form.classList.add('was-validated'); 
+            }
           });
 
           if (firstInvalidInput) {
@@ -315,7 +330,7 @@ document.addEventListener("DOMContentLoaded", function () {
           }
 
           if (!formIsValid) {
-              form.classList.add('was-validated');  // Add Bootstrap's validation class
+              form.classList.add('was-validated'); 
           }
       }
 
