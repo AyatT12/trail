@@ -66,9 +66,7 @@ body {
   z-index: 9999;
   width: 200px;
 }
-.menu{
-  direction: ltr;
-}
+
 .menu-links{
   direction: rtl;
 
@@ -201,7 +199,7 @@ body {
   height: 100%;
   overflow-y: scroll;
   overflow-x: hidden;
-
+  direction: ltr;
 
 }
 .sidebar.close .menu {
