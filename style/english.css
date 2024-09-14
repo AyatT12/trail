@@ -4,6 +4,13 @@
 body {
     direction: ltr;
 }
+.menu-links{
+direction: ltr;
+}
+.sidebar .menu {
+   
+    direction: rtl;
+}
 .sidebar header .toggle{
     right: -25px;
     left:auto;
@@ -17,12 +24,17 @@ body {
 
 .sidebar.close{
     border-right: 2px solid #ffffff !important;
+    border-left: none;
+
 }
 .sidebar.close:hover{
     border-right: 2px solid #39629C !important;
+    border-left: none;
+
 }
 .sidebar {
     border-right: 2px solid #39629C;
+    border-left: none;
 }
 .inner-collapse-arrow{
     transform: rotate(180deg);
@@ -31,7 +43,7 @@ body {
     float: right;
 }
 .sidebar2 .toggle2{
-    left: -15px;
+    left: -35px;
     right: auto;
 }
 .sidebar2.open .sidebar2-chevron {
@@ -53,7 +65,7 @@ body {
 }
 @media (max-width: 1000px) {
     .sidebar2.close2 {
-        right: -15px;
+        left: -45px ;
         left: auto;
     }
 }
@@ -102,3 +114,9 @@ body {
 .tel-input {
     border-radius: 8px 0px 0px 8px !important;
 }
+
+/* ================================================================================  services => technical connect     ======================================================================================= */
+/* ================================================================================================================================================================================== */
+.techncal-connect-error{
+    direction:ltr;
+  }
